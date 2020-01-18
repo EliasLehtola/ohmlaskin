@@ -1,0 +1,34 @@
+Module Module1
+
+    Sub Main()
+        Dim ppa As Object 'Valitsin käyttäjän syötettäville arvoille datatyypin Object, jotta ohjelma ei kaatuisi väärään syötettyyn arvoon
+        Dim pituus As Object
+        Dim ominaisvastus As Double = 0.0175
+        Dim ppaOk As Boolean = False
+        Dim pituusOk As Boolean = False
+        Dim pyoristettyVastus As Double
+
+        Console.WriteLine("Tama on johtimen resistanssilaskuri")
+
+        Do 'Silmukan alku
+            Console.WriteLine(vbNewLine & "Syota johtimen poikkipinta-ala millimetreina: ")
+            ppa = Console.ReadLine() 'Poikkipinta-alan syöttö                                                                                  
+            Console.WriteLine(vbNewLine & "Syota johtimen pituus metreina: ")
+            pituus = Console.ReadLine() 'Johtimen pituuden syöttö
+
+            ppaOk = IsNumeric(ppa)
+            pituusOk = IsNumeric(pituus) 'Tarkistus, muuttujat=numero
+
+            If ppaOk = True And pituusOk = True Then
+                pyoristettyVastus = Math.Round((pituus / ppa) * ominaisvastus, 2, MidpointRounding.ToEven) 'p*(a/l), pyöristys
+                Console.WriteLine(vbNewLine & "Johtimen resistanssi on: " & pyoristettyVastus & " ohmia")
+            Else
+                Console.WriteLine(vbNewLine & "Et syottanyt numeroita") 'Virheviesti
+            End If
+        Loop Until (ppaOk = True And pituusOk = True) 'Silmukka päättyy, kun tiedot on annettu numeroina
+
+        Console.ReadLine()
+
+    End Sub
+
+End Module
